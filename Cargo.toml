@@ -1,0 +1,46 @@
+[package]
+name = "iot-dash-sdk"
+version = "0.1.0"
+edition = "2021"
+authors = ["Tarun Vishwakarma <tarunvishwakarma81@gmail.com>"]
+description = "SDK for IoT devices to communicate with dashboard"
+license = "MIT"
+
+[dependencies]
+
+# async runtime
+tokio = {version ="1.44.2", features = ["full"]}
+
+# Serialization
+serde = {version = "1.0.219", features = ["derive"]}
+serde_json = "1.0.140"
+
+# Crypto for auth
+ed25519-dalek = "2.1.1"
+rand = "0.9.0"
+base64 = "0.22.1"
+hex = "0.4.3"
+hmac = "0.12.1"
+sha2 = "0.10.8"
+
+# HTTP client
+reqwest = {version = "0.12.15", features = ["json"]}
+
+# WebSockets
+tokio-tungstenite = "0.26.2"
+futures-util = "0.3.31"
+
+# Error Handling
+thiserror = "2.0.12"
+anyhow = "1.0.97"
+
+# Configuration
+config = "0.15.11"
+
+# Logging
+tracing = "0.1.41"
+tracing-subscriber = "0.3.19"
+
+[dev-dependencies]
+tokio-test = "0.4.4"
+
