@@ -83,7 +83,6 @@ impl AuthManager {
 
 /// Generate a random device ID
 fn generate_device_id() -> String {
-    use rand::Rng;
     let mut rng = OsRng;
     let random_bytes: [u8; 16] = rng.gen();
     format!("device-{}", general_purpose::STANDARD.encode(random_bytes))
