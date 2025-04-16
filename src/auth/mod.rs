@@ -1,6 +1,6 @@
-use anyhow::{Result, Context, anyhow};
+use anyhow::{Result, Context};
 use ed25519_dalek::{Signer, SigningKey, Signature, VerifyingKey};
-use base64::{alphabet::STANDARD, engine::general_purpose, Engine as _};
+use base64::{engine::general_purpose, Engine as _};
 use rand::rngs::OsRng;
 use std::fs;
 use crate::config::ClientConfig;
@@ -24,11 +24,12 @@ impl AuthManager {
                 .context("Invalid base64 encoding for private key")?;
         }else{
             // Generate new key
-            SigningKey::generate(&mut OsRng)
+            let mut rng = OsRng;
+            SigningKey::generate(&mut rng)
         };
 
         let device_id = config.device_id.clone()
-            .unwrap_or_esle(|| generate_device_id());
+            .unwrap_or_else(|| generate_device_id());
 
         Ok(Self {
             signing_key,
