@@ -79,6 +79,24 @@ impl HttpClient {
         self.handle_response(response).await
     }
 
+    /// Make an authenticated POST request
+    pub async fn post<T: DeserializeOwned, B: Serialize>(&self, path: &str, body: &B) -> Result<T> {
+        let url = format!("{}{}", self.base_url, path);
+        let token = self.auth_manager.create_auth_token(300)?; // 5 minute token
+
+        debug!("Making POST request to {}", url);
+
+        let response = self.client.post(&url)
+            .header(header::AUTHORIZATION, format!("Bearer {}", token))
+            .header(header::CONTENT_TYPE, "application/json")
+            .json(body)
+            .send()
+            .await
+            .context("Failed to send POST request")?;
+
+        self.handle_response(response).await
+    }
+
     /// Handle API response
     async fn handle_response<T: DeserializeOwned>(&self, response: reqwest::Response) -> Result<T> {
         let status = response.status();
