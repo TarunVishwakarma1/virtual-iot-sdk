@@ -87,7 +87,7 @@ impl DeviceData {
     pub fn add_reading<T: Serialize>(mut self, name: &str, value: T) -> anyhow::Result<Self> {
         let value = serde_json::to_value(value)?;
         self.readings.insert(name.to_string(), value);
-        Ok(self);
+        Ok(self)
     }
 
     /// Set the alert level
