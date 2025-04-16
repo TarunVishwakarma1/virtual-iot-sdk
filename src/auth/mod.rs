@@ -1,7 +1,7 @@
 use anyhow::{Result, Context};
 use ring::signature::{self, Ed25519KeyPair, KeyPair, UnparsedPublicKey, ED25519};
 use base64::{engine::general_purpose, Engine as _};
-use rand::{rngs::OsRng, RngCore, TryRngCore};
+use rand::{rngs::OsRng, TryRngCore};
 use std::fs;
 use crate::config::ClientConfig;
 

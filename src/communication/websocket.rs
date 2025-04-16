@@ -9,8 +9,8 @@ use tracing::{info, error, debug};
 use serde::{Serialize, Deserialize};
 use std::time::Duration;
 use tokio::time::sleep;
+use rand::{rngs::ThreadRng, Rng};
 use base64::{engine::general_purpose, Engine as _};
-use rand::{Rng, thread_rng};
 
 /// A WebSocket connection to the IoT service
 pub struct WebSocketConnection {
@@ -229,7 +229,7 @@ impl WebSocketConnection {
 
 /// Generate a random message ID
 fn generate_message_id() -> String {
-    let mut rng = thread_rng();
-    let random_bytes: [u8; 8] = rng.gen();
-    base64::engine::general_purpose::STANDARD.encode(random_bytes)
+    let mut rng = ThreadRng::default();
+    let random_bytes: [u8; 8] = rng.random();
+    general_purpose::STANDARD.encode(random_bytes)
 }
