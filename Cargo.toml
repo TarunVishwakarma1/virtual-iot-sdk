@@ -12,12 +12,10 @@ license = "MIT"
 tokio = {version ="1.44.2", features = ["full"]}
 
 # Serialization
+ring = "0.17.14"
 serde = {version = "1.0.219", features = ["derive"]}
 serde_json = "1.0.140"
-
-# Crypto for auth
-ed25519-dalek = "2.1.1"
-rand = "0.9.0"
+rand = {version = "0.9.0", features = ["os_rng"]}
 base64 = "0.22.1"
 hex = "0.4.3"
 hmac = "0.12.1"
